@@ -1,0 +1,869 @@
+:root {
+  /* Paleta acolhedora e festiva (Confraternização) */
+  --bg: #FAF8F5;
+  --bg-desktop: #F2EDE4;
+  --surface: #FFFFFF;
+  --surface-soft: #F7F3EC;
+  --border: #E6DFD3;
+  --border-strong: #C9BFA9;
+
+  /* Texto de alto contraste (acessibilidade para idosos) */
+  --text: #1F2937;
+  --text-strong: #111827;
+  --text-muted: #4B5563;
+
+  /* Acentos principais */
+  --accent: #D97706;
+  --accent-hover: #B45309;
+  --accent-soft: #FEF3C7;
+  --accent-border: #F59E0B;
+
+  /* Ação de confirmação */
+  --confirm: #059669;
+  --confirm-hover: #047857;
+  --confirm-soft: #D1FAE5;
+  --confirm-text: #065F46;
+
+  /* Erro e alertas */
+  --danger: #DC2626;
+  --danger-hover: #B91C1C;
+  --danger-soft: #FEE2E2;
+  --danger-text: #991B1B;
+
+  /* Sombra leve e raios */
+  --shadow-card: 0 10px 30px rgba(31, 41, 55, 0.08), 0 2px 8px rgba(31, 41, 55, 0.04);
+  --shadow-soft: 0 4px 12px rgba(31, 41, 55, 0.06);
+  --radius-card: 24px;
+  --radius-btn: 16px;
+  --radius-input: 16px;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   Layout Mobile-First (360px-430px) + Centralizado em Desktop (max-width: 440px)
+   ============================================================================ */
+
+.app-shell {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-shell--admin {
+  justify-content: flex-start;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 520px) {
+  body {
+    background-color: var(--bg-desktop);
+    background-image: radial-gradient(circle at 20% 15%, rgba(217, 119, 6, 0.08), transparent 45%),
+      radial-gradient(circle at 80% 85%, rgba(5, 150, 105, 0.07), transparent 45%);
+  }
+
+  .app-shell {
+    padding: 24px 16px;
+  }
+}
+
+/* ============================================================================
+   Cartão Principal (Zero poluição visual)
+   ============================================================================ */
+
+.card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card--centered {
+  text-align: center;
+  align-items: center;
+}
+
+.card--admin {
+  gap: 18px;
+  padding: 22px 18px;
+}
+
+/* Ícone festivo compacto no topo da tela pública */
+.festive-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: var(--accent-soft);
+  border: 2px solid #FDE68A;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.festive-badge--confirm {
+  background: var(--confirm-soft);
+  border-color: #A7F3D0;
+  color: var(--confirm);
+}
+
+.festive-badge svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* ============================================================================
+   Tipografia Grande e Alto Contraste
+   ============================================================================ */
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.22;
+  font-weight: 800;
+  color: var(--text-strong);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.question-label {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.participant-name-highlight {
+  margin: 0;
+  font-size: clamp(32px, 8.8vw, 38px);
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--text-strong);
+  word-break: break-word;
+}
+
+/* Caixa festiva de revelação do Amigo Oculto */
+.reveal-box {
+  width: 100%;
+  background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 2px solid var(--accent-border);
+  border-radius: 20px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.reveal-caption {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #92400E;
+}
+
+.reveal-name {
+  margin: 0;
+  font-size: clamp(36px, 9.8vw, 44px);
+  line-height: 1.12;
+  font-weight: 800;
+  color: var(--text-strong);
+  word-break: break-word;
+  letter-spacing: -0.02em;
+}
+
+.friendly-tip {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  width: 100%;
+}
+
+/* ============================================================================
+   Campo Numérico de 2 Dígitos (Teclado Numérico + 40px+)
+   ============================================================================ */
+
+.code-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.code-input {
+  width: 184px;
+  max-width: 100%;
+  height: 82px;
+  border: 2.5px solid var(--border-strong);
+  border-radius: 18px;
+  background: #FFFDF9;
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.code-input::placeholder {
+  color: #C7BFB2;
+  font-weight: 700;
+}
+
+.code-input:focus {
+  border-color: var(--accent);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.22);
+}
+
+.code-input[aria-invalid='true'] {
+  border-color: var(--danger);
+  background: #FFF5F5;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.16);
+}
+
+/* ============================================================================
+   Botões Grandes e Ergonomia de Toque (>= 58px, width 100%, gap 16px)
+   ============================================================================ */
+
+.button-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn {
+  width: 100%;
+  min-height: 60px;
+  padding: 14px 20px;
+  border-radius: var(--radius-btn);
+  border: 2px solid transparent;
+  font-family: var(--font-sans);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  text-align: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, transform 0.08s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--text-strong);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Dourado / Âmbar quente */
+.btn--primary {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: #B45309;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.26);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+/* Verde-esmeralda para confirmação */
+.btn--confirm {
+  background: var(--confirm);
+  color: #FFFFFF;
+  border-color: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.26);
+}
+
+.btn--confirm:hover:not(:disabled) {
+  background: var(--confirm-hover);
+}
+
+/* Botão secundário claro com contorno nítido */
+.btn--secondary {
+  background: #F9FAFB;
+  color: var(--text-strong);
+  border-color: #9CA3AF;
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: #F3F4F6;
+  border-color: #6B7280;
+}
+
+/* Botão de alerta / reset */
+.btn--danger {
+  background: var(--danger);
+  color: #FFFFFF;
+  border-color: var(--danger-hover);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--danger-hover);
+}
+
+/* Botão discreto para ação de emergência no rodapé do /admin */
+.btn--ghost-danger {
+  min-height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  background: transparent;
+  color: var(--danger-text);
+  border: 1.5px dashed #FCA5A5;
+}
+
+.btn--ghost-danger:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.btn--compact {
+  min-height: 54px;
+  font-size: 18px;
+  padding: 12px 16px;
+}
+
+/* ============================================================================
+   Mensagens de Erro e Feedback Visíveis
+   ============================================================================ */
+
+.alert {
+  width: 100%;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  text-align: left;
+  border: 2px solid transparent;
+}
+
+.alert--error {
+  background: var(--danger-soft);
+  color: var(--danger-text);
+  border-color: #FCA5A5;
+}
+
+.alert--info {
+  background: var(--accent-soft);
+  color: #92400E;
+  border-color: #FCD34D;
+}
+
+.alert--success {
+  background: var(--confirm-soft);
+  color: var(--confirm-text);
+  border-color: #6EE7B7;
+}
+
+/* ============================================================================
+   Compactação inteligente para quando o teclado numérico abre no celular
+   (Mantém fontes grandes e botões >= 58px sem exigir rolagem)
+   ============================================================================ */
+
+@media (max-height: 640px) {
+  .app-shell:not(.app-shell--admin) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .card:not(.card--admin) {
+    padding: 18px 18px;
+    gap: 14px;
+  }
+
+  .festive-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .festive-badge svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .code-form {
+    gap: 14px;
+  }
+
+  .code-input {
+    height: 74px;
+  }
+
+  .reveal-box {
+    padding: 18px 14px;
+  }
+}
+
+/* ============================================================================
+   Painel Administrativo (/admin) — Mobile-First e Sem Spoiler
+   ============================================================================ */
+
+.admin-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: #92400E;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-link {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+
+.field-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.field-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.field-hint {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.text-input,
+.text-area {
+  width: 100%;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-input);
+  background: #FFFFFF;
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.text-input {
+  min-height: 56px;
+}
+
+.text-area {
+  min-height: 132px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.text-input:focus,
+.text-area:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.18);
+}
+
+.password-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-row .text-input {
+  padding-right: 92px;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-soft);
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.inline-add-row {
+  display: flex;
+  gap: 10px;
+}
+
+.inline-add-row .text-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.inline-add-row .btn {
+  width: auto;
+  min-width: 118px;
+  min-height: 56px;
+  font-size: 18px;
+  padding: 10px 16px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* Lista de nomes antes do sorteio */
+.draft-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.draft-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+.draft-item__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-strong);
+  word-break: break-word;
+}
+
+.remove-btn {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid #FCA5A5;
+  background: #FFFFFF;
+  color: var(--danger-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: var(--danger-soft);
+}
+
+/* Resumo do painel pós-sorteio */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.stat-box {
+  border-radius: 16px;
+  padding: 14px 12px;
+  text-align: center;
+  border: 1.5px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.stat-box--seen {
+  background: var(--confirm-soft);
+  border-color: #A7F3D0;
+}
+
+.stat-box--pending {
+  background: var(--accent-soft);
+  border-color: #FDE68A;
+}
+
+.stat-box__number {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-strong);
+}
+
+.stat-box__label {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Cartões de cada participante pós-sorteio (Sem Spoiler) */
+.participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.participant-card {
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  background: #FFFFFF;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.participant-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.participant-card__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-strong);
+  word-break: break-word;
+}
+
+.participant-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: #1F2937;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.status-pill--seen {
+  background: var(--confirm-soft);
+  color: var(--confirm-text);
+}
+
+.status-pill--pending {
+  background: var(--accent-soft);
+  color: #92400E;
+}
+
+.participant-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.whatsapp-link-btn {
+  background: #ECFDF5;
+  color: #065F46;
+  border-color: #6EE7B7;
+}
+
+.whatsapp-link-btn:hover {
+  background: #D1FAE5;
+}
+
+.no-spoiler-note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--confirm-text);
+  background: var(--confirm-soft);
+  border: 1px solid #A7F3D0;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.emergency-zone {
+  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ============================================================================
+   Modal Acessível (Confirmação Dupla e Reset de Emergência)
+   ============================================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(17, 24, 39, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 408px;
+  background: var(--surface);
+  border-radius: 22px;
+  padding: 24px 20px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.modal-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
